@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthHelper extends ChangeNotifier {
   bool authStatus = false;
   String? statusMessage;
+  String? name;
+  String? email;
 
   AuthHelper() {
     initialAuthChecker();
@@ -13,6 +15,8 @@ class AuthHelper extends ChangeNotifier {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     if (preferences.getBool('isSignedIn') == true) {
       authStatus = true;
+      this.name = preferences.getString('name');
+      this.email = preferences.getString('emailID');
       print('true');
       notifyListeners();
     }
@@ -26,6 +30,8 @@ class AuthHelper extends ChangeNotifier {
       statusMessage = "Logged In";
 
       preferences.setBool('isSignedIn', true);
+      this.name = preferences.getString('name');
+      this.email = preferences.getString('emailID');
       print('Logged In');
 
       notifyListeners();
@@ -43,6 +49,8 @@ class AuthHelper extends ChangeNotifier {
       preferences.setString('name', name);
       preferences.setString("pass", passWord).whenComplete(() {
         authStatus = true;
+        this.name = preferences.getString('name');
+        this.email = preferences.getString('emailID');
         preferences.setBool('isSignedIn', true);
 
         statusMessage = "Sign Up Sucessfull";
