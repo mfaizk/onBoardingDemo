@@ -12,59 +12,73 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  AppBar appBar = AppBar(
+    backgroundColor: const Color(0xffffb234),
+    elevation: 0,
+    iconTheme: const IconThemeData(
+      color: Colors.black,
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xffffb234),
-      child: Consumer(
-        builder: (context, ref, child) {
-          AuthHelper authHelper = ref.watch(authprovider);
-          AsyncValue<Position> curPosition = ref.watch(locationprovider);
+    return Scaffold(
+      appBar: appBar,
+      body: Container(
+        height:
+            (MediaQuery.of(context).size.height) - appBar.preferredSize.height,
+        width: MediaQuery.of(context).size.width,
+        color: const Color(0xffffb234),
+        child: Consumer(
+          builder: (context, ref, child) {
+            AuthHelper authHelper = ref.watch(authprovider);
+            AsyncValue<Position> curPosition = ref.watch(locationprovider);
 
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Card(
-                elevation: 5.0,
-                child: Padding(
-                  padding: const EdgeInsets.all(50.0),
-                  child: Wrap(
-                    alignment: WrapAlignment.spaceBetween,
-                    direction: Axis.vertical,
-                    children: [
-                      Text("Name of user is :" + authHelper.name.toString()),
-                      const Padding(
-                        padding: EdgeInsets.only(
-                          bottom: 10,
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Card(
+                  elevation: 5.0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(50.0),
+                    child: Wrap(
+                      alignment: WrapAlignment.spaceBetween,
+                      direction: Axis.vertical,
+                      children: [
+                        Text("Name of user is :" + authHelper.name.toString()),
+                        const Padding(
+                          padding: EdgeInsets.only(
+                            bottom: 10,
+                          ),
                         ),
-                      ),
-                      Text(
-                          "EmailID of user is :" + authHelper.email.toString()),
-                      Text("Location of user is :" +
-                          curPosition.value.toString()),
-                    ],
+                        Text("EmailID of user is :" +
+                            authHelper.email.toString()),
+                        Text("Location of user is :" +
+                            curPosition.value.toString()),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(
-                  bottom: 50,
+                const Padding(
+                  padding: EdgeInsets.only(
+                    bottom: 50,
+                  ),
                 ),
-              ),
-              MaterialButton(
-                color: Colors.red,
-                onPressed: () {
-                  authHelper.signout();
-                },
-                child: const Text(
-                  'signout',
-                  style: TextStyle(color: Colors.white),
+                MaterialButton(
+                  color: Colors.red,
+                  onPressed: () {
+                    authHelper.signout();
+                  },
+                  child: const Text(
+                    'signout',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }

@@ -47,6 +47,7 @@ class _SigninPageState extends State<SigninPage> {
                 height: (MediaQuery.of(context).size.height * 0.7) -
                     appBar.preferredSize.height,
                 width: MediaQuery.of(context).size.width,
+                color: Colors.white,
                 child: SingleChildScrollView(
                   child: Card(
                     shadowColor: Colors.grey,
